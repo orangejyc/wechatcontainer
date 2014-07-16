@@ -27,7 +27,7 @@ import org.orange.wechatcontainer.sdk.ext.RequestContext;
 import org.orange.wechatcontainer.sdk.ext.RequestContextImpl;
 import org.orange.wechatcontainer.sdk.ext.SignatureInfo;
 import org.orange.wechatcontainer.sdk.util.SignatureUtil;
-import org.orange.wechatcontainer.sdk.util.XMLConverOUtil;
+import org.orange.wechatcontainer.sdk.util.XMLConverUtil;
 import org.orange.wechatcontainer.service.TentantInfoService;
 
 
@@ -118,7 +118,7 @@ public class IndexController extends BaseSpringController{
 			signatureInfo.setNonce(nonce);
 			requestContext.setSignatureInfo(signatureInfo);
 			//构造接收消息对象
-			EventMessage eventMessage = XMLConverOUtil.convertToObject(EventMessage.class,xml);
+			EventMessage eventMessage = XMLConverUtil.convertToObject(EventMessage.class,xml);
 			requestContext.setEventMessage(eventMessage);
 			//容器service调用脚本处理返回结果 
 			return tentantInfoService.handle(requestContext);
