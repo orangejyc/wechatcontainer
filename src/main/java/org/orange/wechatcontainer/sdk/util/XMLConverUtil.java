@@ -77,7 +77,7 @@ public class XMLConverUtil{
 	 * @param object
 	 * @return
 	 */
-	public static String convertToXML(Object obj){
+	public static String convertToXML(Object obj){// donot use object
 		try {
 			if(!mMap.containsKey(obj.getClass())){
 				JAXBContext jaxbContext = JAXBContext.newInstance(obj.getClass());
