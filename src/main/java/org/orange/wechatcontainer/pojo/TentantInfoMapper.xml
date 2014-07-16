@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<!--  -->
+<mapper namespace="TentantInfo">
+
+	<resultMap id="TentantInfo" type="org.orange.wechatcontainer.pojo.TentantInfo">
+        <result property="tenantid" column="tenantid"/>
+        <result property="tenantname" column="tenantname"/>
+        <result property="wechatcode" column="wechatcode"/>
+        <result property="adminname" column="adminname"/>
+        <result property="adminpwd" column="adminpwd"/>
+        <result property="baseurl" column="baseurl"/>
+        <result property="token" column="token"/>
+        <result property="tentantaddress" column="tentantaddress"/>
+        <result property="tentanttel" column="tentanttel"/>
+        <result property="tentantlinkman" column="tentantlinkman"/>
+        <result property="tentantamount" column="tentantamount"/>
+        <result property="logicscript" column="logicscript"/>
+        <result property="createdate" column="createdate"/>
+        <result property="lastdate" column="lastdate"/>
+        <result property="registertype" column="registertype"/>
+        <result property="parentid" column="parentid"/>
+	</resultMap>
+
+	<sql id="TentantInfo.columns">
+	    <![CDATA[
+		tenantid,tenantname,wechatcode,adminname,adminpwd,baseurl,token,tentantaddress,tentanttel,tentantlinkman,tentantamount,logicscript,createdate,lastdate,registertype,parentid
+	    ]]>
+	</sql>
+
+	
+    
+    <select id="TentantInfo.getById" resultMap="TentantInfo">
+		SELECT <include refid="TentantInfo.columns" />
+	    <![CDATA[
+		    FROM container_tenant_info 
+	        WHERE 
+		        tenantid = #{tenantid} 
+	    ]]>
+	</select>
+	
+	<sql id="TentantInfo.findPage.where">
+		<!-- ognl access static method:@class@method(args),below was invoke Ognl.isNotEmpty(),other has isNotBlank() etc， -->
+		<where>	      				
+	       <if test="@Ognl@isNotEmpty(tenantid)">
+				AND tenantid = #{tenantid}
+			</if>
+		</where>
+	</sql>
+		
+    <select id="TentantInfo.findPage.count" resultType="long">
+        SELECT count(*) FROM container_tenant_info 
+		<include refid="TentantInfo.findPage.where"/>    
+    </select>
+    
+   
+    <select id="TentantInfo.findPage" resultMap="TentantInfo">
+    	SELECT <include refid="TentantInfo.columns" />
+	    FROM container_tenant_info 
+		<include refid="TentantInfo.findPage.where"/>
+		
+		<if test="@Ognl@isNotEmpty(sortColumns)">
+			ORDER BY ${sortColumns}
+		</if>
+    </select>
+</mapper>
+

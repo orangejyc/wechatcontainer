@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<!--  -->
+<mapper namespace="UserInfo">
+
+	<resultMap id="userInfo" type="org.orange.wechatcontainer.pojo.UserInfo">
+        <result property="userId" column="user_id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="birthDate" column="birth_date"/>
+        <result property="sex" column="sex"/>
+        <result property="age" column="age"/>
+	</resultMap>
+	
+	<!-- select common columns -->
+	<sql id="UserInfo.columns">
+	    <![CDATA[
+		user_id,username,password,birth_date,sex,age
+	    ]]>
+	</sql>
+
+	<!-- useGeneratedKeys="true" keyProperty="xxx" for sqlserver and mysql -->
+	<insert id="UserInfo.insert" useGeneratedKeys="true" keyProperty="userId">
+    <![CDATA[
+        INSERT INTO user_info (
+        	user_id ,
+        	username ,
+        	password ,
+        	birth_date ,
+        	sex ,
+        	age 
+        ) VALUES (
+        	#{userId} ,
+        	#{username} ,
+        	#{password} ,
+        	#{birthDate} ,
+        	#{sex} ,
+        	#{age} 
+        )
+    ]]>
+		<!--	
+			oracle: order="BEFORE" SELECT sequenceName.nextval AS ID FROM DUAL 
+			DB2: order="BEFORE"" values nextval for sequenceName
+		<selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="userId">
+			SELECT sequenceName.nextval AS ID FROM DUAL 
+        </selectKey>
+		-->
+	</insert>
+    
+	<update id="UserInfo.update" >
+    <![CDATA[
+        UPDATE user_info SET
+	        username = #{username} ,
+	        password = #{password} ,
+	        birth_date = #{birthDate} ,
+	        sex = #{sex} ,
+	        age = #{age} 
+        WHERE 
+	        user_id = #{userId} 
+    ]]>
+	</update>
+
+    <delete id="UserInfo.delete">
+    <![CDATA[
+        DELETE FROM user_info WHERE
+        user_id = #{id} 
+    ]]>
+    </delete>
+    
+    <select id="UserInfo.getById" resultMap="userInfo">
+		SELECT <include refid="UserInfo.columns" />
+	    <![CDATA[
+		    FROM user_info 
+	        WHERE 
+		        user_id = #{id} 
+	    ]]>
+	</select>
+	
+	<sql id="UserInfo.findPage.where">
+		<!-- ognl access static method:@class@method(args),below was invoke Ognl.isNotEmpty(),other has isNotBlank() etc， -->
+		<where>	      				
+	       <if test="@Ognl@isNotEmpty(userId)">
+				AND user_id = #{userId}
+			</if>
+	       <if test="@Ognl@isNotEmpty(username)">
+				AND username = #{username}
+			</if>
+	       <if test="@Ognl@isNotEmpty(password)">
+				AND password = #{password}
+			</if>
+	       <if test="@Ognl@isNotEmpty(birthBegin)">
+				AND birth_date >= #{birthBegin}
+		   </if>
+		   <if test="@Ognl@isNotEmpty(birthEnd)">
+				AND birth_date &lt;= #{birthEnd}
+		   </if>
+	       <if test="@Ognl@isNotEmpty(sex)">
+				AND sex = #{sex}
+			</if>
+	       <if test="@Ognl@isNotEmpty(age)">
+				AND age = #{age}
+			</if>
+		</where>
+	</sql>
+		
+    <select id="UserInfo.findPage.count" resultType="long">
+        SELECT count(*) FROM user_info 
+		<include refid="UserInfo.findPage.where"/>    
+    </select>
+    
+    <!--
+    	we have using Dialect to paging, we also can paging not using Dialect
+    	Paging will passed offset,pageSize,lastRows these 3 param,
+    -->
+    <select id="UserInfo.findPage" resultMap="userInfo">
+    	SELECT <include refid="UserInfo.columns" />
+	    FROM user_info 
+		<include refid="UserInfo.findPage.where"/>
+		
+		<if test="@Ognl@isNotEmpty(sortColumns)">
+			ORDER BY ${sortColumns}
+		</if>
+    </select>
+
+	
+</mapper>
+

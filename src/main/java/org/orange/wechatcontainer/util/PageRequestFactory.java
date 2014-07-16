@@ -1,0 +1,61 @@
+package org.orange.wechatcontainer.util;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
+
+import org.orange.wechatcontainer.common.BaseQuery;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.beanutils.BeanUtilsBean;
+import org.springframework.web.bind.ServletRequestUtils;
+import org.springframework.web.util.WebUtils;
+
+import org.orange.wechatcontainer.common.PageRequest;
+/**
+ * paging plugin class will override bindPageRequest() of this class * 
+ */
+public class PageRequestFactory {
+    public static final int MAX_PAGE_SIZE = 1000;
+    
+    static BeanUtilsBean beanUtils = new BeanUtilsBean();
+    static {
+    	//convert date 
+    	String[] datePatterns = new String[] {"yyyy-MM-dd","yyyy-MM-dd HH:mm:ss","yyyy-MM-dd HH:mm:ss.SSS","HH:mm:ss"};
+    	ConvertRegisterHelper.registerConverters(beanUtils.getConvertUtils(),datePatterns);
+    	
+        System.out.println("PageRequestFactory.MAX_PAGE_SIZE="+MAX_PAGE_SIZE);
+    }
+
+    public static PageRequest bindPageRequest(PageRequest pageRequest,HttpServletRequest request){
+        return bindPageRequest(pageRequest, request, null);
+    }
+    
+    public static PageRequest bindPageRequest(PageRequest pageRequest,HttpServletRequest request,String defaultSortColumns){
+        return bindPageRequest(pageRequest, request, defaultSortColumns, BaseQuery.DEFAULT_PAGE_SIZE);
+    }
+    
+    /**
+     * bind property value of PageRequest
+     */
+    public static PageRequest bindPageRequest(PageRequest pageRequest, HttpServletRequest request,String defaultSortColumns, int defaultPageSize) {
+	    	try {
+	    		Map params = WebUtils.getParametersStartingWith(request, "");
+	    		beanUtils.copyProperties(pageRequest, params);
+		    } catch (IllegalAccessException e) {
+		    	throw new IllegalArgumentException("beanUtils.copyProperties() error",e);
+			} catch (InvocationTargetException e) {
+				throw new IllegalArgumentException("beanUtils.copyProperties() error",e.getTargetException());
+			}
+	        
+	        pageRequest.setPageNumber(ServletRequestUtils.getIntParameter(request, "pageNumber", 1));
+	        pageRequest.setPageSize(ServletRequestUtils.getIntParameter(request, "pageSize", defaultPageSize));
+	        pageRequest.setSortColumns(ServletRequestUtils.getStringParameter(request, "sortColumns",defaultSortColumns));
+	        
+	        if(pageRequest.getPageSize() > MAX_PAGE_SIZE) {
+	            pageRequest.setPageSize(MAX_PAGE_SIZE);
+	        }
+	        return pageRequest;
+    }
+
+}

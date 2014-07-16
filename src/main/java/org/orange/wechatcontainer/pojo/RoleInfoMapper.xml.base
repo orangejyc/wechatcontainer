@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="RoleInfo">
+	<resultMap id="roleInfo" type="org.orange.wechatcontainer.pojo.RoleInfo">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="info" column="info"/>
+        <result property="createDate" column="create_date"/>
+    </resultMap>
+	
+	<!-- select common columns -->
+	<sql id="RoleInfo.columns">
+	    <![CDATA[
+		id,name,info,create_date
+	    ]]>
+	</sql>
+
+	<!-- useGeneratedKeys="true" keyProperty="xxx" for sqlserver and mysql -->
+	<insert id="RoleInfo.insert" useGeneratedKeys="true" keyProperty="id">
+    <![CDATA[
+        INSERT INTO role_info (
+        	id,
+        	name,
+        	info,
+        	create_date 
+        	 
+        ) VALUES (
+        	#{id},
+        	#{name},
+        	#{info},
+        	#{createDate} 
+        )
+    ]]>
+		
+	</insert>
+    
+	<update id="RoleInfo.update" >
+    <![CDATA[
+        UPDATE role_info SET
+	        name = #{name} ,
+	        info = #{info} ,
+	        create_date = #{createDate}
+        WHERE 
+	        id = #{Id} 
+    ]]>
+	</update>
+
+    <delete id="RoleInfo.delete">
+    <![CDATA[
+        DELETE FROM role_info WHERE
+        id = #{id} 
+    ]]>
+    </delete>
+    
+    <select id="RoleInfo.getById" resultMap="roleInfo">
+		SELECT <include refid="RoleInfo.columns" />
+	    <![CDATA[
+		    FROM role_info 
+	        WHERE 
+		        id = #{id} 
+	    ]]>
+	</select>
+	
+	<sql id="RoleInfo.findPage.where">
+		
+		<where>	      				
+	       <if test="@Ognl@isNotEmpty(id)">
+				AND id = #{id}
+			</if>
+	       <if test="@Ognl@isNotEmpty(name)">
+				AND name = #{name}
+			</if>
+	       <if test="@Ognl@isNotEmpty(info)">
+				AND info like '%$info$%'
+			</if>
+	       
+		</where>
+	</sql>
+		
+    <select id="RoleInfo.findPage.count" resultType="long">
+        SELECT count(*) FROM role_info 
+		<include refid="RoleInfo.findPage.where"/>    
+    </select>
+    
+   
+    <select id="RoleInfo.findPage" resultMap="roleInfo">
+    	SELECT <include refid="RoleInfo.columns" />
+	    FROM role_info 
+		<include refid="RoleInfo.findPage.where"/>
+		
+		<if test="@Ognl@isNotEmpty(sortColumns)">
+			ORDER BY ${sortColumns}
+		</if>
+    </select>
+
+	<!-- below are user&role info section -->
+	
+	<resultMap type="org.orange.wechatcontainer.pojo.UserRoleQuery" id="userRoleResult">
+		<result column="id" property="roleInfo.id"  />
+		<result column="name" property="roleInfo.name" />
+		<result column="info" property="roleInfo.info" />
+		<result column="create_date" property="roleInfo.createDate" />
+		<result column="user_id" property="userInfo.userId" />
+		<result column="username" property="userInfo.username" />
+		<result column="password" property="userInfo.password" />
+		<result column="birth_date" property="userInfo.birthDate" />
+		<result column="sex" property="userInfo.sex" />
+		<result column="age" property="userInfo.age" />
+	</resultMap>
+	
+	<sql id="RoleInfo.findPages.where">
+		
+		<where>
+		 u.user_id=ur.user_id and r.id=ur.role_id	
+		 <if test="@Ognl@isNotEmpty(roleInfo)">        				
+	       <if test="@Ognl@isNotEmpty(roleInfo.id)">
+	          
+				AND r.id = #{roleInfo.id}
+				
+			</if>
+	       <if test="@Ognl@isNotEmpty(roleInfo.name)">
+				AND r.name = #{roleInfo.name}
+			</if>
+	       <if test="@Ognl@isNotEmpty(roleInfo.info)">
+				AND r.info like '%$roleInfo.info$%' 
+			</if>
+		</if>
+		<if test="@Ognl@isNotEmpty(userInfo)">
+			<if test="@Ognl@isNotEmpty(userInfo.userId)">
+				AND u.user_id = #{userInfo.userId}
+			</if>
+	       <if test="@Ognl@isNotEmpty(userInfo.username)">
+				AND u.username = #{userInfo.username}
+			</if>
+	       <if test="@Ognl@isNotEmpty(userInfo.sex)">
+				AND u.sex = #{userInfo.sex}
+			</if>
+	        <if test="@Ognl@isNotEmpty(userInfo.age)">
+				AND u.age = #{userInfo.age}
+			</if>
+		</if>
+		</where>
+	</sql>
+	
+	<select id="RoleInfo.findPages.count" resultType="long">
+        SELECT count(u.user_id) FROM user_info u,role_info r,user_role_info ur 
+		<include refid="RoleInfo.findPages.where"/>    
+    </select>
+    
+    
+    <select id="RoleInfo.findPages" resultMap="userRoleResult">
+    	select u.user_id,u.username,u.password,u.birth_date,u.sex,u.age,r.id,r.name,r.info,r.create_date
+		from user_info u,role_info r,user_role_info ur 
+		<include refid="RoleInfo.findPages.where"/>
+		
+		<if test="@Ognl@isNotEmpty(sortColumns)">
+			ORDER BY ${sortColumns}
+		</if>
+    </select>
+</mapper>
+
