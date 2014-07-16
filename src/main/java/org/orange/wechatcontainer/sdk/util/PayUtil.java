@@ -173,7 +173,7 @@ public class PayUtil {
 			String retErrMsg,
 			String paternerKey){
 		PayNativeReply payNativeReply = generatePayNativeReply(payPackage, appId, retCode, retErrMsg, paternerKey);
-		return XMLConverOUtil.convertToXML(payNativeReply);
+		return XMLConverUtil.convertToXML(payNativeReply);
 	}
 	
 	/**
@@ -182,6 +182,6 @@ public class PayUtil {
 	 * @return
 	 */
 	public static String generatePayNativeReplyXML(PayNativeReply payNativeReply){
-		return XMLConverOUtil.convertToXML(payNativeReply);
+		return XMLConverUtil.convertToXML(payNativeReply);
 	}
 }
