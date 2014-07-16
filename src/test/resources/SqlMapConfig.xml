@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<setting name="cacheEnabled" value="true" />
+		<setting name="lazyLoadingEnabled" value="true" />
+		<setting name="multipleResultSetsEnabled" value="true" />
+	</settings>
+	<plugins>
+		<!-- DB paging Dialect, They are:OracleDialect,SQLServerDialect,SybaseDialect,DB2Dialect,PostgreSQLDialect,MySQLDialect,DerbyDialect,HSQLDialect-->
+		<plugin interceptor="org.orange.wechatcontainer.plugins.OffsetLimitInterceptor">
+			<property name="dialectClass" value="org.orange.wechatcontainer.plugins.MySQLDialect"/>
+		</plugin>
+	</plugins>
+	<!-- 
+	<typeAliases>
+	
+		
+	</typeAliases>
+	  -->
+</configuration>
