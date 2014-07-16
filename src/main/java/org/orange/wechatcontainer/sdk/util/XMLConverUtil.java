@@ -77,20 +77,20 @@ public class XMLConverUtil{
 	 * @param object
 	 * @return
 	 */
-	public static String convertToXML(Object object){
+	public static String convertToXML(Object obj){
 		try {
-			if(!mMap.containsKey(object.getClass())){
-				JAXBContext jaxbContext = JAXBContext.newInstance(object.getClass());
+			if(!mMap.containsKey(obj.getClass())){
+				JAXBContext jaxbContext = JAXBContext.newInstance(obj.getClass());
 				Marshaller marshaller = jaxbContext.createMarshaller();
 				marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 	            marshaller.setProperty(CharacterEscapeHandler.class.getName(), new CharacterEscapeHandler() { 
 	                public void escape(char[] ac, int i, int j, boolean flag,Writer writer) throws IOException {
 	                writer.write( ac, i, j ); }
 	            });
-				mMap.put(object.getClass(), marshaller);
+				mMap.put(obj.getClass(), marshaller);
 			}
 			StringWriter stringWriter = new StringWriter();
-			mMap.get(object.getClass()).marshal(object,stringWriter);
+			mMap.get(obj.getClass()).marshal(obj,stringWriter);
 			return stringWriter.getBuffer().toString();
 		} catch (JAXBException e) {
 			e.printStackTrace();
