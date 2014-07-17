@@ -23,20 +23,20 @@ public class CardInfo extends BaseEntity implements java.io.Serializable{
 	public static final String TABLE_ALIAS = "member_card_info";
 	
 	
-	private String cardid="";
-	private String cardcode="";
+	private String cardid=null;
+	private String cardcode=null;
 	private float rechargeamount=0.00f;
 	private float outlayamount=0.00f;
 	private float balance=0.00f;
 	private int outlayscore=0;
 	private int loginscore=0;
 	private int enabled=0;
-	private String createdate="";
-	private String lastdate="";
-	private String enddate="";
-	private String cardtypeid="";
-	private String tentantid="";
-	private String guestid="";
+	private String createdate=null;
+	private String lastdate=null;
+	private String enddate=null;
+	private String cardtypeid=null;
+	private String tentantid=null;
+	private String guestid=null;
 	private CardTypeInfo cardtypeinfo=null;
 	private TentantInfo tentantinfo=null;
 	private GuestInfo guestinfo=null;

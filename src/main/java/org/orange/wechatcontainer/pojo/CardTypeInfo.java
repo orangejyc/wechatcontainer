@@ -23,7 +23,7 @@ public class CardTypeInfo extends BaseEntity implements java.io.Serializable{
 	public static final String TABLE_ALIAS = "member_cardtype_info";
 	
 	
-	private String cardtypeid="";
+	private String cardtypeid=null;
 	
 	
 	public String getCardtypeid() {

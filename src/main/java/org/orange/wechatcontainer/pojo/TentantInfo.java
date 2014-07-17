@@ -27,33 +27,33 @@ public class TentantInfo extends BaseEntity implements java.io.Serializable{
 	public static final String FORMAT_BIRTH_DATE = DATE_FORMAT;
 	
 	
-	private String tentantid="";
+	private String tentantid=null;
 	
-	private String tenantname="";
+	private String tenantname;
 
-	private String wechatcode="";
+	private String wechatcode;
 	
-	private String adminname="";
+	private String adminname;
 	
-	private String adminpwd="";
+	private String adminpwd;
 	
-	private String baseurl="";
+	private String baseurl;
 	
-	private String token="";
+	private String token;
 	
-	private String tentantaddress="";
+	private String tentantaddress;
 	
-	private String tentanttel="";
+	private String tentanttel;
 	
-	private String tentantlinkman="";
+	private String tentantlinkman;
 	
 	private float tentantamount=0.00f;
 	
 	private int registertype=0;
 	
-	private String parentid="";
+	private String parentid;
 	
-	private String logicscript="";
+	private String logicscript;
 	
 	private List<TentantInfo> tentantes=null;
 	

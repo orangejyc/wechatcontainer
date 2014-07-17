@@ -27,9 +27,9 @@ public class GuestInfo extends BaseEntity implements java.io.Serializable{
 	public static final String FORMAT_BIRTH_DATE = DATE_FORMAT;
 	
 	
-	private String guestid="";
+	private String guestid=null;
 	
-	private String guestname="";
+	private String guestname=null;
 
 	public String getGuestid() {
 		return guestid;

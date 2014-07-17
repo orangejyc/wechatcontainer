@@ -129,6 +129,10 @@ public abstract class BaseIbatis3Dao<E,PK extends Serializable> extends DaoSuppo
 	public List findAll() {
 		throw new UnsupportedOperationException();
 	}
+	
+	public void saveOrUpdate(E entity) {
+		throw new UnsupportedOperationException();
+	}
 
 	public boolean isUnique(E entity, String uniquePropertyNames) {
 		throw new UnsupportedOperationException();

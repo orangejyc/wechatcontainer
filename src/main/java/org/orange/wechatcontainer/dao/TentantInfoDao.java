@@ -12,20 +12,4 @@ public class TentantInfoDao extends BaseIbatis3Dao<TentantInfo,java.lang.String>
 	public String getIbatisMapperNamesapce() {
 		return "TentantInfo";
 	}
-	
-	public void saveOrUpdate(TentantInfo entity) {
-		if(entity.getTentantid() == null) 
-			save(entity);
-		else 
-			update(entity);
-	}
-	
-	public Page findPage(TentantInfoQuery query) {
-		return pageQuery("TentantInfo.findPage",query);
-	}
-	
-	/*
-	public TentantInfo getById(String primaryKey){
-		return (TentantInfo)(super.getById(primaryKey));
-	}*/
 }
