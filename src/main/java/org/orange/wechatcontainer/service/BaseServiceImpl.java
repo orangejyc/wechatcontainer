@@ -24,6 +24,7 @@ public abstract class BaseServiceImpl <E,PK extends Serializable> implements Bas
 	//@Transactional(readOnly=true)
 	public E getById(PK id) throws DataAccessException{
 		return (E)getEntityDao().getById(id);
+		
 	}
 	
 	/* (non-Javadoc)

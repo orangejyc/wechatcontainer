@@ -19,26 +19,16 @@ import org.springframework.stereotype.Service;
 import com.alibaba.druid.util.StringUtils;
 
 @Service
-public class TentantInfoServiceImpl extends BaseServiceImpl implements TentantInfoService {
+public class TentantInfoServiceImpl extends BaseServiceImpl<TentantInfo,String> implements TentantInfoService {
 
 	@Autowired
 	private TentantInfoDao tentantInfoDao;
-	
-	public TentantInfoDao getTentantInfoDao() {
-		return tentantInfoDao;
-	}
-
-	public void setTentantInfoDao(TentantInfoDao tentantInfoDao) {
-		this.tentantInfoDao = tentantInfoDao;
-	}
-
-
 
 	/* (non-Javadoc)
 	 * @see org.orange.wechatcontainer.service.TentantInfoService#getEntityDao()
 	 */
 	
-	public EntityDao getEntityDao() {
+	public EntityDao<TentantInfo,String> getEntityDao() {
 		return this.tentantInfoDao;
 	}
 	
@@ -67,6 +57,7 @@ public class TentantInfoServiceImpl extends BaseServiceImpl implements TentantIn
 	}
 	
 	
+	
 
 	@Override
 	public String handle(RequestContext requestContext) {
@@ -79,6 +70,12 @@ public class TentantInfoServiceImpl extends BaseServiceImpl implements TentantIn
 			return "";
 		}
 		
+		//验证是不是到期
+	
+		
+		//如果是公用事件，该独立处理
+		
+		
 		ResponseContext responseContext=new ResponseContextImpl();
 		ScriptEngineer scriptEngineer=new ScriptEngineer();
 		scriptEngineer.AddObject("RequestContext", requestContext);
@@ -88,11 +85,12 @@ public class TentantInfoServiceImpl extends BaseServiceImpl implements TentantIn
 		scriptEngineer.AddObject("Out", System.out);
 		try {
 			requestContext.getEventMessage().getFromUserName();
-			StringBuilder sb=new StringBuilder();
-			sb.append("var me=RequestContext.getEventMessage();Out.println(RequestContext.getEventMessage().getFromUserName());");
+			//StringBuilder sb=new StringBuilder();
+			//sb.append("var me=RequestContext.getEventMessage();Out.println(RequestContext.getEventMessage().getFromUserName());");
 			
-			sb.append("Out.println(me.getFromUserName());");
-			Object obj=scriptEngineer.Run(sb.toString());
+			//sb.append("Out.println(me.getFromUserName());");
+			//Object obj=scriptEngineer.Run(sb.toString());
+			Object obj=scriptEngineer.Run(tentantInfo.getLogicscript());
 			if(null!=obj){
 				return obj.toString();
 			}

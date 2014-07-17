@@ -30,6 +30,7 @@ public interface BaseService<E, PK extends Serializable> {
 	public boolean isUnique(E entity, String uniquePropertyNames)
 			throws DataAccessException;
 	
+	//public EntityDao<E,PK> getEntityDao();
 	public EntityDao getEntityDao();
 
 }

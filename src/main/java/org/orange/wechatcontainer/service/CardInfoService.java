@@ -1,16 +1,15 @@
 package org.orange.wechatcontainer.service;
 
+import java.io.Serializable;
+
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.orange.wechatcontainer.common.Page;
+import org.orange.wechatcontainer.pojo.CardInfo;
 import org.orange.wechatcontainer.pojo.TentantInfo;
 import org.orange.wechatcontainer.sdk.ext.RequestContext;
 import org.orange.wechatcontainer.sdk.ext.SignatureInfo;
 
-public interface TentantInfoService extends BaseService<TentantInfo,String> {
-	
-	public boolean validate(SignatureInfo signatureInfo,TentantInfo tentantInfo);
-	
-	public boolean validate(SignatureInfo signatureInfo,String tentantid);
-		
-	public String handle(RequestContext requestContext);
+public interface CardInfoService extends BaseService<CardInfo,java.lang.String> {
+	CardInfo getFullCardInfoById(String id);
 }

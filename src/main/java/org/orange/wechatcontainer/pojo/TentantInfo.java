@@ -53,6 +53,8 @@ public class TentantInfo extends BaseEntity implements java.io.Serializable{
 	
 	private String parentid="";
 	
+	private String logicscript="";
+	
 	private List<TentantInfo> tentantes=null;
 	
 	
@@ -182,6 +184,14 @@ public class TentantInfo extends BaseEntity implements java.io.Serializable{
 		return new EqualsBuilder()
 			.append(getTentantid(),other.getTentantid())
 			.isEquals();
+	}
+
+	public String getLogicscript() {
+		return logicscript;
+	}
+
+	public void setLogicscript(String logicscript) {
+		this.logicscript = logicscript;
 	}
 
 	
