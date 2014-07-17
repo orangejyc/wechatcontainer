@@ -41,7 +41,7 @@ import org.orange.wechatcontainer.service.TentantInfoService;
 @RequestMapping("/site")
 public class SiteController extends BaseSpringController{
 
-	private static final String CARD_INFO_PAGE="site/cardinfo";
+	private static final String INDEX_PAGE="site/index";
 	
 	@Autowired
 	private CardInfoService cardInfoService=null;
@@ -60,8 +60,14 @@ public class SiteController extends BaseSpringController{
 	@RequestMapping(value="/{cardId}",method=RequestMethod.GET)
 	public ModelAndView showCard(@PathVariable String cardId){
 		CardInfo card=(CardInfo)cardInfoService.getFullCardInfoById(cardId);
-		ModelAndView mv=new ModelAndView(CARD_INFO_PAGE);
+		ModelAndView mv=new ModelAndView(INDEX_PAGE);
 		mv.addObject("cardinfo", card);
+		return mv;
+	}
+	
+	@RequestMapping(value="/index",method=RequestMethod.GET)
+	public ModelAndView index(){
+		ModelAndView mv=new ModelAndView(INDEX_PAGE);
 		return mv;
 	}
 }
