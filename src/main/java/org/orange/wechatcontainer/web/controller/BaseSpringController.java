@@ -27,7 +27,11 @@ public class BaseSpringController extends MultiActionController{
 	protected final static String UPDATE_SUCCESS = "update successfully";
 	protected final static String DELETE_SUCCESS = "delete successfully";
 	
+	
+	
 	protected final static String ERROR_PAGE = "error.jsp";
+	
+	protected final static String SUFFIX_STRING = ".jtml";
 	
 	static {
 		//converters

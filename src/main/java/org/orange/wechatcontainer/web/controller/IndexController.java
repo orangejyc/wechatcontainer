@@ -51,17 +51,8 @@ public class IndexController extends BaseSpringController{
 	public IndexController() {
 	}
 	
-	@RequestMapping(value="/{dddid}.jtml",method=RequestMethod.GET)
-	public ModelAndView jtml(@PathVariable String dddid){
-		
-		String ss=dddid;
-		ModelAndView mv=new ModelAndView("site/index");
-		return mv;
-	}
 	
-	
-	
-	@RequestMapping(value="/{tentantId}",method=RequestMethod.GET)
+	@RequestMapping(value="/{tentantId}"+SUFFIX_STRING,method=RequestMethod.GET)
 	public @ResponseBody String validate(@PathVariable String tentantId,
 			@RequestParam("signature") String signature,
 			@RequestParam("timestamp") String timestamp,
@@ -90,7 +81,7 @@ public class IndexController extends BaseSpringController{
 		}
 	}
 	
-	@RequestMapping(value="/{tentantId}",method=RequestMethod.POST)
+	@RequestMapping(value="/{tentantId}"+SUFFIX_STRING,method=RequestMethod.POST)
 	public @ResponseBody String index(@PathVariable String tentantId,
 			@RequestParam("signature") String signature,
 			@RequestParam("timestamp") String timestamp,

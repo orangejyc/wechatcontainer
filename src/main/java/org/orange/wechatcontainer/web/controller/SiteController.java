@@ -57,7 +57,7 @@ public class SiteController extends BaseSpringController{
 	}
 
 
-	@RequestMapping(value="/{cardId}",method=RequestMethod.GET)
+	@RequestMapping(value="/{cardId}"+SUFFIX_STRING,method=RequestMethod.GET)
 	public ModelAndView showCard(@PathVariable String cardId){
 		CardInfo card=(CardInfo)cardInfoService.getFullCardInfoById(cardId);
 		ModelAndView mv=new ModelAndView(INDEX_PAGE);
@@ -65,7 +65,7 @@ public class SiteController extends BaseSpringController{
 		return mv;
 	}
 	
-	@RequestMapping(value="/index.jtml",method=RequestMethod.GET)
+	@RequestMapping(value="/index"+SUFFIX_STRING,method=RequestMethod.GET)
 	public ModelAndView index(){
 		ModelAndView mv=new ModelAndView(INDEX_PAGE);
 		return mv;

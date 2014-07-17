@@ -39,7 +39,7 @@ public class ConsoleController extends BaseSpringController{
 	}
 
 
-	@RequestMapping(value="/{cardId}",method=RequestMethod.GET)
+	@RequestMapping(value="/{cardId}"+SUFFIX_STRING,method=RequestMethod.GET)
 	public ModelAndView showCard(@PathVariable String cardId){
 		CardInfo card=(CardInfo)cardInfoService.getFullCardInfoById(cardId);
 		ModelAndView mv=new ModelAndView(INDEX_PAGE);
