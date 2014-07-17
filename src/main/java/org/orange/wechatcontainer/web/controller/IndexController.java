@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.orange.wechatcontainer.sdk.bean.EventMessage;
 import org.orange.wechatcontainer.sdk.bean.xmlmessage.XMLTextMessage;
 import org.orange.wechatcontainer.sdk.ext.RequestContext;
@@ -49,6 +50,16 @@ public class IndexController extends BaseSpringController{
 	
 	public IndexController() {
 	}
+	
+	@RequestMapping(value="/{dddid}.jtml",method=RequestMethod.GET)
+	public ModelAndView jtml(@PathVariable String dddid){
+		
+		String ss=dddid;
+		ModelAndView mv=new ModelAndView("site/index");
+		return mv;
+	}
+	
+	
 	
 	@RequestMapping(value="/{tentantId}",method=RequestMethod.GET)
 	public @ResponseBody String validate(@PathVariable String tentantId,

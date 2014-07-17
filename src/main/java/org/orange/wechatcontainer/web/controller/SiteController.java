@@ -65,7 +65,7 @@ public class SiteController extends BaseSpringController{
 		return mv;
 	}
 	
-	@RequestMapping(value="/index",method=RequestMethod.GET)
+	@RequestMapping(value="/index.jtml",method=RequestMethod.GET)
 	public ModelAndView index(){
 		ModelAndView mv=new ModelAndView(INDEX_PAGE);
 		return mv;
