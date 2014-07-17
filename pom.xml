@@ -325,7 +325,6 @@
 		   </dependency>
 			
 	</dependencies>
-	
 	<build>
 		<plugins>
 			
