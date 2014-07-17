@@ -23,7 +23,7 @@ import org.orange.wechatcontainer.service.CardInfoService;
 @RequestMapping("/console")
 public class ConsoleController extends BaseSpringController{
 
-	private static final String CARD_INFO_PAGE="admin/index";
+	private static final String INDEX_PAGE="console/index";
 	
 	@Autowired
 	private CardInfoService cardInfoService=null;
@@ -42,8 +42,14 @@ public class ConsoleController extends BaseSpringController{
 	@RequestMapping(value="/{cardId}",method=RequestMethod.GET)
 	public ModelAndView showCard(@PathVariable String cardId){
 		CardInfo card=(CardInfo)cardInfoService.getFullCardInfoById(cardId);
-		ModelAndView mv=new ModelAndView(CARD_INFO_PAGE);
+		ModelAndView mv=new ModelAndView(INDEX_PAGE);
 		mv.addObject("cardinfo", card);
+		return mv;
+	}
+	
+	@RequestMapping(value="/index",method=RequestMethod.GET)
+	public ModelAndView index(){
+		ModelAndView mv=new ModelAndView(INDEX_PAGE);
 		return mv;
 	}
 }
