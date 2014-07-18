@@ -1,9 +1,8 @@
-package org.orange.wechatcontainer.test.common;
+package org.orange.wechatcontainer.common.test;
 
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.ContextHierarchy;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
@@ -18,30 +17,22 @@ import org.springframework.web.context.WebApplicationContext;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)  
-@ContextConfiguration(locations = { "classpath:applicationContext.xml" })
+@WebAppConfiguration(value = "src/main/webapp")  
 @TransactionConfiguration(defaultRollback = true) 
 @Transactional
-
-public class  BaseServiceTestCase  {
+@ContextHierarchy({  
+        @ContextConfiguration(name = "parent", locations = "classpath:applicationContext.xml"),  
+        @ContextConfiguration(name = "child", locations = "classpath:springmvc-servlet.xml")  
+})  
+//public class  BaseTestCase extends AbstractTransactionalJUnit4SpringContextTests  {
+public class  BaseWebTestCase  {
   
-	@Autowired
-    protected ApplicationContext applicationContext;  
-   
-    
-    public <T> T getBean(Class<T> type) {
-    	return applicationContext.getBean(type);
-    	}
-    	 
-    	public Object getBean(String beanName) {
-    	return applicationContext.getBean(beanName);
-    	}
-    	 
-    	protected ApplicationContext getContext() {
-    	return applicationContext;
-    	}
+    @Autowired  
+    protected WebApplicationContext wac;  
+    protected MockMvc mockMvc;  
   
     @Before  
     public void setUp() {  
-    	
+        mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();  
     }  
 }  

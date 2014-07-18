@@ -2,7 +2,7 @@ package org.orange.wechatcontainer.test.controller;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.orange.wechatcontainer.test.common.BaseWebTestCase;
+import org.orange.wechatcontainer.common.test.BaseWebTestCase;
 import org.springframework.test.web.servlet.MvcResult;
 import  org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import  org.springframework.test.web.servlet.result.MockMvcResultHandlers;

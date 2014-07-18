@@ -1,4 +1,4 @@
-package org.orange.wechatcontainer.test.common;
+package org.orange.wechatcontainer.common.test;
 
 import org.junit.Before;
 import org.junit.runner.RunWith;
@@ -21,7 +21,8 @@ import org.springframework.web.context.WebApplicationContext;
 @ContextConfiguration(locations = { "classpath:applicationContext.xml" })
 @TransactionConfiguration(defaultRollback = true) 
 @Transactional
-public class  BaseDaoTestCase  {
+
+public class  BaseServiceTestCase  {
   
 	@Autowired
     protected ApplicationContext applicationContext;  
@@ -41,6 +42,6 @@ public class  BaseDaoTestCase  {
   
     @Before  
     public void setUp() {  
-         
+    	
     }  
 }  
