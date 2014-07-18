@@ -32,7 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class SiteControllerTest extends BaseWebJUnitCase{
 	
 	  
-	 @Test  
+	 @Test   
 	 public void testView() throws Exception {  
 	    mockMvc.perform(MockMvcRequestBuilders.get("/site/index.jtml"))  ;
 	             //.andExpect(MockMvcResultMatchers.view().name("site/index"))  
