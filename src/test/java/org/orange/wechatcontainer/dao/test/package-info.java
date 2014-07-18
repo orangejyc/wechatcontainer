@@ -5,4 +5,4 @@
  * @author Administrator
  *
  */
-package org.orange.wechatcontainer.test.controller;
+package org.orange.wechatcontainer.dao.test;

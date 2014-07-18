@@ -31,7 +31,7 @@ public class BaseSpringController extends MultiActionController{
 	
 	protected final static String ERROR_PAGE = "error.jsp";
 	
-	protected final static String SUFFIX_STRING = ".jtml";
+	protected final static String SUFFIX_STRING = ".jsp";
 	//protected final static String SUFFIX_STRING = "";
 	
 	static {
