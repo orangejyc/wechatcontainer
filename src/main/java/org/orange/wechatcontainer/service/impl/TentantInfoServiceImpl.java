@@ -1,10 +1,10 @@
-package org.orange.wechatcontainer.service;
+package org.orange.wechatcontainer.service.impl;
 
 
 import javax.script.ScriptException;
 
 import org.orange.wechatcontainer.dao.EntityDao;
-import org.orange.wechatcontainer.dao.TentantInfoDao;
+import org.orange.wechatcontainer.dao.hibernate4impl.TentantInfoDaoHImpl;
 import org.orange.wechatcontainer.func.ScriptEngineer;
 import org.orange.wechatcontainer.pojo.TentantInfo;
 import org.orange.wechatcontainer.sdk.ext.MessageBuilder;
@@ -13,6 +13,8 @@ import org.orange.wechatcontainer.sdk.ext.ResponseContext;
 import org.orange.wechatcontainer.sdk.ext.ResponseContextImpl;
 import org.orange.wechatcontainer.sdk.ext.SignatureInfo;
 import org.orange.wechatcontainer.sdk.util.SignatureUtil;
+import org.orange.wechatcontainer.service.BaseServiceImpl;
+import org.orange.wechatcontainer.service.TentantInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +24,7 @@ import com.alibaba.druid.util.StringUtils;
 public class TentantInfoServiceImpl extends BaseServiceImpl<TentantInfo,String> implements TentantInfoService {
 
 	@Autowired
-	private TentantInfoDao tentantInfoDao;
+	private TentantInfoDaoHImpl tentantInfoDao;
 
 	/* (non-Javadoc)
 	 * @see org.orange.wechatcontainer.service.TentantInfoService#getEntityDao()

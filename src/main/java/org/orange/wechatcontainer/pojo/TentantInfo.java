@@ -2,6 +2,12 @@ package org.orange.wechatcontainer.pojo;
 
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Past;
 
@@ -16,6 +22,11 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import org.orange.wechatcontainer.util.DateConvertUtils;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
+
+@Entity
+@Table(name = "container_tenant_info")
 public class TentantInfo extends BaseEntity implements java.io.Serializable{
 	private static final long serialVersionUID = 5454155825314635342L;
 	
@@ -23,10 +34,10 @@ public class TentantInfo extends BaseEntity implements java.io.Serializable{
 	public static final String TABLE_ALIAS = "container_tenant_info";
 	
 	
-	//date formats
-	public static final String FORMAT_BIRTH_DATE = DATE_FORMAT;
 	
-	
+	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "tenantid", unique = true, nullable = false,length=38)
 	private String tentantid=null;
 	
 	private String tenantname;
@@ -55,7 +66,7 @@ public class TentantInfo extends BaseEntity implements java.io.Serializable{
 	
 	private String logicscript;
 	
-	private List<TentantInfo> tentantes=null;
+
 	
 	
 	
@@ -162,14 +173,15 @@ public class TentantInfo extends BaseEntity implements java.io.Serializable{
 	public void setParentid(String parentid) {
 		this.parentid = parentid;
 	}
-
-	public List<TentantInfo> getTentantes() {
-		return tentantes;
+	
+	public String getLogicscript() {
+		return logicscript;
 	}
 
-	public void setTentantes(List<TentantInfo> tentantes) {
-		this.tentantes = tentantes;
+	public void setLogicscript(String logicscript) {
+		this.logicscript = logicscript;
 	}
+	
 	
 	public int hashCode() {
 		return new HashCodeBuilder()
@@ -186,13 +198,7 @@ public class TentantInfo extends BaseEntity implements java.io.Serializable{
 			.isEquals();
 	}
 
-	public String getLogicscript() {
-		return logicscript;
-	}
-
-	public void setLogicscript(String logicscript) {
-		this.logicscript = logicscript;
-	}
+	
 
 	
 }

@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.orange.wechatcontainer.util.JasonHelper;
 
+
+
 public class ActionResult<T> {
 	private String result;
 	private String reason;

@@ -1,14 +1,20 @@
-package org.orange.wechatcontainer.service;
+package org.orange.wechatcontainer.service.impl;
 
-import org.orange.wechatcontainer.dao.CardInfoDao;
-import org.orange.wechatcontainer.dao.CardTypeInfoDao;
+import java.util.List;
+
 import org.orange.wechatcontainer.dao.EntityDao;
-import org.orange.wechatcontainer.dao.GuestInfoDao;
-import org.orange.wechatcontainer.dao.TentantInfoDao;
+import org.orange.wechatcontainer.dao.hibernate4impl.CardInfoDaoHImpl;
+import org.orange.wechatcontainer.dao.hibernate4impl.CardTypeInfoDaoHImpl;
+import org.orange.wechatcontainer.dao.hibernate4impl.GuestInfoDaoHImpl;
+import org.orange.wechatcontainer.dao.hibernate4impl.ModuleInfoDaoHImpl;
+import org.orange.wechatcontainer.dao.hibernate4impl.TentantInfoDaoHImpl;
 import org.orange.wechatcontainer.pojo.CardInfo;
 import org.orange.wechatcontainer.pojo.CardTypeInfo;
 import org.orange.wechatcontainer.pojo.GuestInfo;
+import org.orange.wechatcontainer.pojo.ModuleInfo;
 import org.orange.wechatcontainer.pojo.TentantInfo;
+import org.orange.wechatcontainer.service.BaseServiceImpl;
+import org.orange.wechatcontainer.service.CardInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,13 +22,15 @@ import org.springframework.stereotype.Service;
 public class CardInfoServiceImpl extends BaseServiceImpl<CardInfo, java.lang.String> implements CardInfoService {
 	
 	@Autowired
-	private CardInfoDao cardInfoDao=null;
+	private CardInfoDaoHImpl cardInfoDao=null;
 	@Autowired
-	private CardTypeInfoDao cardTypeInfoDao=null;
+	private CardTypeInfoDaoHImpl cardTypeInfoDao=null;
 	@Autowired
-	private GuestInfoDao guestInfoDao=null;
+	private GuestInfoDaoHImpl guestInfoDao=null;
 	@Autowired
-	private TentantInfoDao tentantInfoDao=null;
+	private TentantInfoDaoHImpl tentantInfoDao=null;
+	@Autowired
+	private ModuleInfoDaoHImpl moduleInfoDao=null;
 	
 	public EntityDao<CardInfo, java.lang.String> getEntityDao() {
 		return this.cardInfoDao;
@@ -38,10 +46,11 @@ public class CardInfoServiceImpl extends BaseServiceImpl<CardInfo, java.lang.Str
 			cardInfo.setGuestinfo(guest);
 			TentantInfo tentant=tentantInfoDao.getById(cardInfo.getTentantid());
 			if(null!=tentant){
+				cardInfo.setTentantinfo(tentant);
 				//构造modulelist
+				List<ModuleInfo> modules=moduleInfoDao.getModuleListByTentant(tentant);
+				cardInfo.setModules(modules);
 			}
-			
-			cardInfo.setTentantinfo(tentant);
 		}
 		return cardInfo;
 	}

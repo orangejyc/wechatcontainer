@@ -6,10 +6,15 @@ import java.util.List;
 import org.springframework.dao.DataAccessException;
 
 public interface EntityDao <E,PK extends Serializable>{
+//public interface EntityDao <E>{
 
-	public Object getById(PK id) throws DataAccessException;
+	public E getById(PK id) throws DataAccessException;
 	
 	public void deleteById(PK id) throws DataAccessException;
+	
+	//public E getById(String id) throws DataAccessException;
+	
+	//public void deleteById(String id) throws DataAccessException;
 	
 	/**  */
 	public void save(E entity) throws DataAccessException;
@@ -26,5 +31,6 @@ public interface EntityDao <E,PK extends Serializable>{
 	public void flush() throws DataAccessException;
 	
 	public List<E> findAll() throws DataAccessException;
+
 	
 }

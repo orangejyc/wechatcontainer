@@ -40,6 +40,9 @@ public class CardInfo extends BaseEntity implements java.io.Serializable{
 	private CardTypeInfo cardtypeinfo=null;
 	private TentantInfo tentantinfo=null;
 	private GuestInfo guestinfo=null;
+	private List<ModuleInfo> modules=null;
+	
+	
 	
 	public String getCardid() {
 		return cardid;
@@ -194,5 +197,13 @@ public class CardInfo extends BaseEntity implements java.io.Serializable{
 		return new EqualsBuilder()
 			.append(getCardid(),other.getCardid())
 			.isEquals();
+	}
+
+	public List<ModuleInfo> getModules() {
+		return modules;
+	}
+
+	public void setModules(List<ModuleInfo> modules) {
+		this.modules = modules;
 	}
 }

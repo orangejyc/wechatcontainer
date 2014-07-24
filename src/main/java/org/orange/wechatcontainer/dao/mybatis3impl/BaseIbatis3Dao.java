@@ -1,9 +1,10 @@
-package org.orange.wechatcontainer.dao;
+package org.orange.wechatcontainer.dao.mybatis3impl;
 
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.session.RowBounds;
@@ -13,9 +14,9 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DaoSupport;
 import org.springframework.util.Assert;
-
 import org.orange.wechatcontainer.common.Page;
 import org.orange.wechatcontainer.common.PageRequest;
+import org.orange.wechatcontainer.dao.EntityDao;
 import org.orange.wechatcontainer.util.PropertyUtils;
 
 public abstract class BaseIbatis3Dao<E,PK extends Serializable> extends DaoSupport implements EntityDao<E,PK> {
@@ -35,6 +36,7 @@ public abstract class BaseIbatis3Dao<E,PK extends Serializable> extends DaoSuppo
 	
 
     public SqlSessionTemplate getSqlSessionTemplate() {
+    	//sqlSessionTemplate.selectList(statement)
     	return sqlSessionTemplate;
     }
     
@@ -43,6 +45,7 @@ public abstract class BaseIbatis3Dao<E,PK extends Serializable> extends DaoSuppo
         Object object = getSqlSessionTemplate().selectOne(getFindByPrimaryKeyStatement(), primaryKey);
         return object;
     }*/
+    
     
     public E getById(PK primaryKey) {
         Object object = getSqlSessionTemplate().selectOne(getFindByPrimaryKeyStatement(), primaryKey);
